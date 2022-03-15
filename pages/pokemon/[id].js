@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import styles from '../../styles/Details.module.css';
 
-const Detail = () => {
+export default function Detail() {
   const {
     query: { id },
   } = useRouter();
@@ -64,6 +64,4 @@ const Detail = () => {
       </div>
     </>
   );
-};
-
-export default Detail;
+}
