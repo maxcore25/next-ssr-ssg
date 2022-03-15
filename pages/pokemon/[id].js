@@ -5,25 +5,39 @@ import Image from 'next/image';
 import Link from 'next/link';
 import styles from '../../styles/Details.module.css';
 
-export default function Detail() {
-  const {
-    query: { id },
-  } = useRouter();
+// * Server Side Rendering
+export async function getServerSideProps({ params }) {
+  const resp = await fetch(
+    `https://jherr-pokemon.s3.us-west-1.amazonaws.com/pokemon/${params.id}.json`
+  );
 
-  const [pokemon, setPokemon] = useState(null);
+  return {
+    props: {
+      pokemon: await resp.json(),
+    },
+  };
+}
 
-  useEffect(() => {
-    async function getPokemon() {
-      const resp = await fetch(
-        `https://jherr-pokemon.s3.us-west-1.amazonaws.com/pokemon/${id}.json`
-      );
-      setPokemon(await resp.json());
-    }
+export default function Detail({ pokemon }) {
+  // * Client Side Rendering
+  //   const {
+  //     query: { id },
+  //   } = useRouter();
 
-    if (id) getPokemon();
-  }, [id]);
+  //   const [pokemon, setPokemon] = useState(null);
 
-  if (!pokemon) return null;
+  //   useEffect(() => {
+  //     async function getPokemon() {
+  //       const resp = await fetch(
+  //         `https://jherr-pokemon.s3.us-west-1.amazonaws.com/pokemon/${id}.json`
+  //       );
+  //       setPokemon(await resp.json());
+  //     }
+
+  //     if (id) getPokemon();
+  //   }, [id]);
+
+  //   if (!pokemon) return null;
 
   return (
     <>
