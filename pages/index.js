@@ -5,7 +5,20 @@ import { useEffect, useState } from 'react';
 import styles from '../styles/Home.module.css';
 
 // * Server Side Rendering
-export async function getServerSideProps(context) {
+// export async function getServerSideProps(context) {
+//   const resp = await fetch(
+//     'https://jherr-pokemon.s3.us-west-1.amazonaws.com/index.json'
+//   );
+
+//   return {
+//     props: {
+//       pokemon: await resp.json(),
+//     },
+//   };
+// }
+
+// * Static Site Generation
+export async function getStaticProps(context) {
   const resp = await fetch(
     'https://jherr-pokemon.s3.us-west-1.amazonaws.com/index.json'
   );
